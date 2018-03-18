@@ -147,7 +147,8 @@ int main(void){
 		char userInput[40];
 		int index = 0;
 		int i =0;
-
+		int pid;
+	
 		printf("#Shell -> ");
 		gets(userInput);
 		
@@ -205,10 +206,18 @@ int main(void){
 			printf("\033[H\033[J");
 		}else if(strcmp(tokens[0], "help") == 0){
 			printf("Grupo:\n-Bruno\n-Mirna\n-Raisa\n-Rayana\nDisciplina:\nSistemas Operacionais\n");
-		}else {
-			printf("Comando não encontrado\n");
+		}else{
+			pid = fork();
+			if(pid == 0){
+				if(execvp(tokens[0], tokens) == -1){
+					printf("Comando não encontrado\n");
+					exit(0);
+				}
+			
+			}else{
+				wait();
+			}
 		}
-	
 		
 	}
  	return(0);
