@@ -5,10 +5,10 @@
 #include <unistd.h>
 #include <string.h>
 #include <assert.h>
-
+#include <stdlib.h>
 
 // Para compilar:  gcc teste2.c -o teste2
-// Para iniciar: sudo ./teste1
+// Para iniciar: sudo ./teste2
 
 
 //começo do codigo ====
@@ -40,12 +40,9 @@ int lastIndexOf(const char * str, const char toFind)
 
     int index = -1;
     int i = 0;
-    //printf("To find : %c \n" , toFind);    
 
     while(str[i] != '\0')
     {
-	//printf("Character : %c \n" , str[i]);
-        // Update index if match is found
         if(str[i] == '/')
         {
             index = i;
@@ -97,7 +94,6 @@ int  getSubString(char *source, char *target,int from, int to)
 		target[j]=source[i];
 	}
 	
-	//assign NULL at the end of string
 	target[j]='\0'; 
 	
 	return 0;	
@@ -113,7 +109,6 @@ char** str_split(char* a_str, const char a_delim)
     delim[0] = a_delim;
     delim[1] = 0;
 
-    /* Count how many elements will be extracted. */
     while (*tmp)
     {
         if (a_delim == *tmp)
@@ -124,13 +119,8 @@ char** str_split(char* a_str, const char a_delim)
         tmp++;
     }
 
-    /* Add space for trailing token. */
     count += last_comma < (a_str + strlen(a_str) - 1);
-
-    /* Add space for terminating null string so caller
-       knows where the list of returned strings ends. */
     count++;
-
     result = malloc(sizeof(char*) * count);
 
     if (result)
@@ -158,7 +148,7 @@ int main(void){
 		int index = 0;
 		int i =0;
 
-		//printf("Digite um diretorio: ");
+		printf("#Shell -> ");
 		gets(userInput);
 		
 		char** tokens;
@@ -210,16 +200,18 @@ int main(void){
 				printf("Erro ao remover arquivo ou diretório\n");
 			}
 		}else if(strcmp(tokens[0] , "exit") == 0){
-			return (0);
+			return(0);
 		}else if(strcmp(tokens[0] , "clear") == 0){
 			printf("\033[H\033[J");
-		}      
-
-		
-		//printf("Diretorio: %s \n" , directory);
+		}else if(strcmp(tokens[0], "help") == 0){
+			printf("Grupo:\n-Bruno\n-Mirna\n-Raisa\n-Rayana\nDisciplina:\nSistemas Operacionais\n");
+		}else {
+			printf("Comando não encontrado\n");
+		}
+	
 		
 	}
-	return(0);
+ 	return(0);
 }
 
 
